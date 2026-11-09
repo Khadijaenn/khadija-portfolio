@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin, Menu, X, FileText,
+  ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin, Menu, X, FileText, Copy, Check,
   BrainCircuit, Database, Eye, Users, FileSearch, Sparkles, Code2, Workflow
 } from "lucide-react";
 import "./styles.css";
 
+const EMAIL = "kennaifer@gmail.com";
+const GMAIL = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${encodeURIComponent("Hello Khadija")}`;
 const GITHUB = "https://github.com/Khadijaenn";
 const LINKEDIN = "https://www.linkedin.com/in/khadija-ennaifer/";
 const CV_URL = "cv.pdf"; // put your CV in /public/cv.pdf (or set to null to hide the button)
@@ -148,19 +150,21 @@ const experiences = [
     bullets: ["Designed an end-to-end BI solution: data integration, data warehouse and Power BI visualisations.", "Built and deployed classification and regression models through a user-friendly web interface."],
     skills: "Python · Talend · SQL · Power BI" },
   { date: "MAY 2023 — AUG 2023", role: "Business Intelligence Intern", company: "Systra Dubai · United Arab Emirates",
-    bullets: ["Performed a full ETL pipeline: data collection, extraction, cleaning and transformation.", "Created interactive Power BI dashboards using DAX and developed a web interface with HTML, CSS and JavaScript."] },
+    bullets: ["Performed a full ETL pipeline: data collection, extraction, cleaning and transformation.", "Created interactive Power BI dashboards using DAX, including visualisations for a live bridge project and a view of the team's workload.", "Contributed to AiSYSTance, an internal tool combining databases and AI to support bridge design: built the web interface cataloguing past bridge projects (Excel, Draw.io, MySQL, Python)."],
+    skills: "Python · MySQL · Power BI · DAX · ETL" },
   { date: "2023 — 2025", role: "Volunteer Instructor, English & Computer Science", company: "Seif Center · Tunisia", bullets: [] }
 ];
 
 const skillGroups = [
-  { label: "AI & MACHINE LEARNING", items: ["LLM Fine-tuning", "RAG", "NLP", "OCR", "Deep Learning", "Computer Vision", "PyTorch", "TensorFlow", "Scikit-learn"] },
-  { label: "DATA & BI", items: ["Python", "SQL / Oracle", "Snowflake", "MongoDB", "Power BI / DAX", "ETL / Talend", "Data Mining"] },
-  { label: "DEPLOYMENT & TOOLS", items: ["Flask", "FastAPI", "Streamlit", "MLflow", "Kedro", "Git", "HTML / CSS / JS"] }
+  { label: "AI & MACHINE LEARNING", items: ["LLM Fine-tuning", "RAG", "NLP", "OCR", "Deep Learning", "Computer Vision", "Transformers", "PyTorch", "TensorFlow", "Scikit-learn", "XGBoost"] },
+  { label: "DATA & DATABASES", items: ["SQL / Oracle", "MySQL", "MongoDB", "Snowflake", "ETL / Talend", "Data Modeling", "Data Warehousing", "Data Mining"] },
+  { label: "BI & VISUALISATION", items: ["Power BI", "DAX", "Power Query", "Streamlit", "Excel", "Power Platform"] },
+  { label: "DEVELOPMENT & MLOPS", items: ["Python", "Flask", "FastAPI", "HTML / CSS / JS", "MLflow", "Kedro", "Git", "UML / Draw.io"] }
 ];
 
 const education = [
   { title: "MSc Data Science & Advanced Analytics", place: "NOVA IMS · Universidade NOVA de Lisboa · Major in Data Science", date: "2025 — 2027" },
-  { title: "Bachelor in Business Intelligence", place: "ESEN · La Manouba, Tunisia", date: "2021 — 2025" }
+  { title: "Bachelor in Business Intelligence", place: "ESEN · La Manouba, Tunisia · Graduated with “Très Bien” and the jury’s congratulations", date: "2021 — 2025" }
 ];
 
 const achievements = [
@@ -177,6 +181,37 @@ const certifications = [
   { title: "Power Platform Fundamentals", issuer: "Microsoft Certified", date: "DEC 2023", links: [["Verify", "https://www.credly.com/badges/78bcef87-b92a-47e2-88a5-79da90da8e10/linked_in_profile"]] },
   { title: "Google Data Analytics · 3 courses", issuer: "Google via Coursera · Foundations, Ask Questions, Prepare Data", date: "FEB — MAR 2024", links: [["Foundations", "https://www.coursera.org/account/accomplishments/records/F62QFWSAFDWG"], ["Ask Questions", "https://www.coursera.org/account/accomplishments/records/SW5Q9C5UGMW6"], ["Prepare Data", "https://www.coursera.org/account/accomplishments/records/FB4U3T5NGHFN"]] },
   { title: "Power BI & UML", issuer: "LinkedIn Learning · Power BI dashboards, Power Query, database modelling with UML", date: "2023 — 2024", links: [["Power BI", "https://www.linkedin.com/learning/certificates/ccb801d678702058a59a049d92292b50e9c11cadd71a075fc225fcaed517f609/"], ["Power Query", "https://www.linkedin.com/learning/certificates/956646a73a657dae1f0549988bd0e7ac58cf78a84a9c39743cc507c8f721902c/"], ["UML", "https://www.linkedin.com/learning/certificates/66902ac1844902e59821ef1e3379708e53f291762ab2c73f5ecc3be75abec94f/"]] }
+];
+
+const community = [
+  { date: "2023 — 2025", title: "Volunteer Instructor", place: "Seif Center · Tunisia", text: "Taught English and computer science as a volunteer instructor." },
+  { date: "2025", title: "Best Project · 20/20", place: "NOVA IMS · Data Mining", text: "Airline customer segmentation, awarded the top grade for the class project." },
+  { date: "2024", title: "Crustacean Age Prediction Hackathon", place: "Hackathon", text: "Built a Gradient Boosting model to predict crustacean age." },
+  { date: "2023", title: "El Maken Hackathon", place: "Hackathon", text: "KNN classification combined with a BI dashboard." },
+  { date: "2017", title: "Mathematics Competition", place: "National team", text: "Represented Tunisia in a mathematics competition." }
+];
+
+const recommendations = [
+  {
+    quote: "Khadija showed remarkable seriousness and great diligence throughout her project. She approached each task with rigour, demonstrating a real mastery of Business Intelligence concepts and an ability to propose innovative solutions to complex problems.",
+    name: "Ghaith Manita", title: "Assistant Professor, ESEN Manouba", org: "Supervisor of her final-year project", date: "October 2024", translated: true
+  },
+  {
+    quote: "Her ability to master these sophisticated tools and apply them effectively was particularly impressive. She not only demonstrated a deep understanding of the technical issues, but also proposed creative and relevant solutions.",
+    name: "Mohamed Oussama Bribech", title: "Software Engineer, BI4YOU", org: "Snowflake, Power BI and Python project", date: "September 2024", translated: true
+  },
+  {
+    quote: "Ms. Khadija exhibited exceptional proficiency and dedication. [...] She has clearly a sharp mind and very good abilities to communicate, learn quickly and progress in a positive trajectory.",
+    name: "Samy Chakroun", title: "Head of Geotechnical & Underground, SYSTRA IBT", org: "Dubai", date: "August 2023", translated: false
+  },
+  {
+    quote: "Khadija integrated perfectly into our teams and always satisfied her supervisors through her seriousness, her commitment and her ability to meet expectations. [...] A person of trust on whom the team could count.",
+    name: "Aymen Cheikh Mhamed", title: "Group Chief Development Officer, Pini Group", org: "Formerly Senior Vice President, Systra Dubai", date: "", translated: true
+  },
+  {
+    quote: "She distinguished herself through her academic excellence and her passion for data analysis and Business Intelligence. Her work has always been characterised by meticulous attention to detail and scientific rigour.",
+    name: "Dr. Hamida Amdouni", title: "Assistant Professor and Director of Studies, ESEN", org: "University of La Manouba", date: "October 2024", translated: true
+  }
 ];
 
 const languages = [["Arabic", "C2"], ["French", "C2"], ["English", "C1"], ["Portuguese", "A1"]];
@@ -213,6 +248,25 @@ function ProjectModal({ project, onClose }) {
   );
 }
 
+function ContactActions() {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(EMAIL); }
+    catch { const t = document.createElement("textarea"); t.value = EMAIL; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }
+    setCopied(true); setTimeout(() => setCopied(false), 2200);
+  };
+  return (
+    <>
+      <div className="contact-email">{EMAIL}</div>
+      <div className="contact-actions">
+        <a className="button button-primary" href={`mailto:${EMAIL}`}>Say hello <ArrowUpRight size={16}/></a>
+        <button className="button button-ghost" onClick={copy}>{copied ? <>Copied <Check size={15}/></> : <>Copy email <Copy size={15}/></>}</button>
+        <a className="button button-ghost" href={GMAIL} target="_blank" rel="noreferrer">Open in Gmail <ArrowUpRight size={15}/></a>
+      </div>
+    </>
+  );
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState(null);
@@ -223,7 +277,7 @@ function App() {
       <header className="nav wrap">
         <a className="brand" href="#home">KE<span>.</span></a>
         <nav>{links.map(([l,h])=><a key={l} href={h}>{l}</a>)}</nav>
-        <a className="nav-contact" href="mailto:kennaifer@gmail.com">LET'S TALK <ArrowUpRight size={14}/></a>
+        <a className="nav-contact" href="#contact">LET'S TALK <ArrowUpRight size={14}/></a>
         <button className="menu-toggle" onClick={()=>setMenuOpen(o=>!o)} aria-label="Menu" aria-expanded={menuOpen}>{menuOpen?<X size={20}/>:<Menu size={20}/>}</button>
         {menuOpen && <div className="mobile-menu">{links.map(([l,h])=><a key={l} href={h} onClick={()=>setMenuOpen(false)}>{l}</a>)}<a href="#contact" onClick={()=>setMenuOpen(false)}>Contact</a></div>}
       </header>
@@ -237,7 +291,7 @@ function App() {
             <p className="hero-description">I’m a Data Science graduate student passionate about turning complex data into intelligent, useful solutions — from machine learning to applied AI.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#projects">Explore my work <ArrowUpRight size={16}/></a>
-              <a className="button button-ghost" href="mailto:kennaifer@gmail.com">Get in touch <Mail size={15}/></a>
+              <a className="button button-ghost" href="#contact">Get in touch <Mail size={15}/></a>
               {CV_URL && <a className="button button-ghost" href={CV_URL} target="_blank" rel="noreferrer">CV <FileText size={15}/></a>}
               <a className="button button-icon" href={GITHUB} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={17}/></a>
               <a className="button button-icon" href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={17}/></a>
@@ -275,11 +329,10 @@ function App() {
         </section>
 
         <section className="skills section wrap" id="skills">
-          <SectionHeading eyebrow="04 / MY TOOLKIT" title="Tools of the trade." text="Technologies I use to explore ideas and build practical solutions." />
+          <SectionHeading eyebrow="04 / SKILLS & TECHNOLOGIES" title="Tools of the trade." text="The languages, frameworks and platforms I use to turn data into working solutions." />
           <div className="skills-grid">{skillGroups.map(group=><div className="skill-group" key={group.label}><span className="eyebrow">{group.label}</span><div className="skill-list">{group.items.map(item=><span key={item}>{item}</span>)}</div></div>)}</div>
           <div className="education-list">{education.map(e=><div className="education-card" key={e.title}><div><span className="eyebrow">EDUCATION</span><h3>{e.title}</h3><p>{e.place}</p></div><span className="education-date">{e.date}</span></div>)}</div>
           <div className="extras-grid">
-            <div className="skill-group"><span className="eyebrow">ACHIEVEMENTS</span><ul className="plain-list">{achievements.map(([t,y])=><li key={t}><span>{t}</span><em>{y}</em></li>)}</ul></div>
             <div className="skill-group"><span className="eyebrow">LANGUAGES</span><ul className="plain-list">{languages.map(([l,lv])=><li key={l}><span>{l}</span><em>{lv}</em></li>)}</ul></div>
           </div>
         </section>
@@ -289,11 +342,21 @@ function App() {
           <div className="certs-grid">{certifications.map(c=><div className="cert-card" key={c.title}><span className="cert-date">{c.date}</span><h3>{c.title}</h3><p>{c.issuer}</p>{c.links.length>0 && <div className="cert-links">{c.links.map(([l,u])=><a key={u} href={u} target="_blank" rel="noreferrer">{l} <ArrowUpRight size={12}/></a>)}</div>}</div>)}</div>
         </section>
 
+        <section className="community section wrap" id="community">
+          <SectionHeading eyebrow="06 / BEYOND THE CODE" title="Community & achievements." text="Teaching, competing and building outside of class and work." />
+          <div className="certs-grid">{community.map(c=><div className="cert-card" key={c.title}><span className="cert-date">{c.date}</span><h3>{c.title}</h3><p className="cert-place">{c.place}</p><p>{c.text}</p></div>)}</div>
+        </section>
+
+        {recommendations.length>0 && <section className="recs section wrap" id="recommendations">
+          <SectionHeading eyebrow="07 / WHAT OTHERS SAY" title="Recommendations." text="In the words of people I've worked with." />
+          <div className="recs-grid">{recommendations.map(r=><figure className="rec-card" key={r.name}><blockquote>“{r.quote}”</blockquote><figcaption><strong>{r.name}</strong><span>{r.title}{r.org ? ` · ${r.org}` : ""}</span>{r.date && <em>{r.date}</em>}{r.translated && <small>Translated from French</small>}</figcaption></figure>)}</div>
+        </section>}
+
         <section className="contact section wrap" id="contact">
-          <span className="eyebrow">06 / WHAT'S NEXT?</span>
+          <span className="eyebrow">{recommendations.length>0 ? "08" : "07"} / WHAT'S NEXT?</span>
           <h2>Have a good problem<br/>to <span>solve?</span></h2>
           <p>I’d love to connect, exchange ideas or explore how data and AI can make a difference.</p>
-          <a className="button button-primary" href="mailto:kennaifer@gmail.com">Say hello <ArrowUpRight size={16}/></a>
+          <ContactActions />
           <div className="socials"><a href={LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={17}/> LinkedIn</a><a href={GITHUB} target="_blank" rel="noreferrer"><Github size={17}/> GitHub</a><a href="mailto:kennaifer@gmail.com"><Mail size={17}/> Email</a></div>
         </section>
       </main>
