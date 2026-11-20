@@ -62,3 +62,6 @@ button.button-ghost{background:transparent;font-family:inherit}
 .rec-card figcaption span:nth-of-type(1){margin-top:0}
 .recs-grid{align-items:stretch}.rec-card{display:flex;flex-direction:column;justify-content:space-between}
 .skills-grid{grid-template-columns:repeat(2,1fr)!important}@media(max-width:800px){.skills-grid{grid-template-columns:1fr!important}}
+
+.lang-toggle{background:transparent;color:inherit;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 12px;margin-right:10px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.08em;cursor:pointer}
+.lang-toggle:hover{border-color:rgba(255,255,255,.55)}
