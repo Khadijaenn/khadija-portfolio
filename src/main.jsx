@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { createRoot } from "react-dom/client";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin, Menu, X, FileText, Copy, Check,
-  BrainCircuit, Database, Eye, Users, FileSearch, Sparkles, Code2, Workflow
+  BrainCircuit, Database, Eye, Users, FileSearch, Sparkles, Code2, Workflow, ShieldCheck
 } from "lucide-react";
 import "./styles.css";
+import { UI, FR, LangCtx } from "./i18n.jsx";
 
 const EMAIL = "kennaifer@gmail.com";
 const GMAIL = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${encodeURIComponent("Hello Khadija")}`;
@@ -34,7 +35,7 @@ const projects = [
     number: "02",
     type: "DOCUMENT INTELLIGENCE",
     title: "Invoice Intelligence",
-    description: "An end-to-end, fully on-premise invoice processing system: OCR plus a locally hosted, fine-tuned LLaMA model extract key fields from invoices, with a manual review interface.",
+    description: "An end-to-end, fully on-premise invoice processing system: OCR plus a locally hosted, fine-tuned LLaMA model extract 6 key fields from invoices, with a manual review interface.",
     tags: ["PaddleOCR", "Tesseract", "EasyOCR", "LLaMA", "Flask"],
     note: "Welyne · 2025",
     repo: "https://github.com/Khadijaenn/Invoice-Extraction-Project",
@@ -106,49 +107,64 @@ const projects = [
   },
   {
     number: "07",
-    type: "BUSINESS INTELLIGENCE",
-    title: "Snowflake Analytics & Monitoring",
-    description: "Power BI dashboards on Snowflake usage data to monitor KPIs, query performance and efficiency, plus optimised data models and automated monitoring.",
-    tags: ["Snowflake", "Power BI", "SQL", "Stored Procedures"],
-    note: "BI4YOU · 2024–2025",
+    type: "BUSINESS INTELLIGENCE · COST & PERFORMANCE",
+    title: "Snowflake Monitoring Dashboard",
+    description: "A 4-page Power BI tool for administrators to track activity, credits and resources per user, warehouse and database, built on Snowflake usage data.",
+    tags: ["Snowflake", "Power BI", "DAX", "SQL", "Stored Procedures"],
+    note: "BI4YOU · 2024 · Prototype on a test account",
     repo: "https://github.com/Khadijaenn/Khadijaenn-performance-analyzation-in-Snowflake",
     icon: Database,
     details: {
-      problem: "Give business stakeholders clear visibility on usage, performance and operational efficiency of their Snowflake environment.",
-      approach: ["Interactive Power BI dashboards on Snowflake usage data", "Designed and optimised data models, SQL queries and warehouse configurations to improve analytics performance and reduce processing times", "Automated monitoring and reporting with Snowflake stored procedures and usage-tracking data", "Worked with stakeholders to turn requirements into analytics solutions"],
-      results: []
+      problem: "Give administrators clear visibility on who uses what, what it costs and which queries are slow, beyond the limited native Snowflake views.",
+      approach: ["SQL views on SNOWFLAKE.ACCOUNT_USAGE in a dedicated database, exposing query type, warehouse and size, duration, credits, user and status", "Power BI data model, relationships and DAX measures, with filters by period, user, warehouse and status", "Tracking per employee: queries, total duration, credits, top users, warehouses and databases", "Automated monitoring with Snowflake stored procedures and a reusable Power BI template (.pbit)", "Wrote a 21-page functional specification (review of existing tools, architecture, prototype)"],
+      results: ["About 9,400 queries (32 types) analyzed over 6 weeks", "Costliest query: a 5,116 s Streamlit run; average duration 3.2 s", "SHOW and SELECT made up about 66% of query volume"]
     }
   },
   {
     number: "08",
-    type: "BI · DATA ENGINEERING",
-    title: "End-to-End BI Solution",
-    description: "A complete BI solution covering data integration, a data warehouse and Power BI visualisations, with classification and regression models deployed through a web interface.",
-    tags: ["Talend", "SQL", "Power BI", "Python"],
-    note: "Systra Dubai · 2024",
+    type: "BI · DATA ENGINEERING · ML",
+    title: "Delivery Tracking BI & Prediction",
+    description: "An end-to-end BI solution: 3 Excel sources consolidated in a MySQL data warehouse, an 8-page Power BI dashboard, two predictive models and a web interface.",
+    tags: ["MySQL", "Python", "Power BI", "XGBoost"],
+    note: "Systra Dubai · End-of-studies project · 2024",
     icon: Workflow,
     details: {
-      problem: "Bring scattered business data together and make it usable for reporting and prediction.",
-      approach: ["Data integration with Talend and a data warehouse", "Power BI visualisations", "Classification and regression models built and deployed via a user-friendly web interface"],
-      results: [],
-      disclaimer: "End-of-studies internship at Systra Dubai. The code and data are not public."
+      problem: "Document deliveries on engineering projects were tracked in scattered Excel files: time-consuming, hard to customize, with limited visualization and no way to anticipate delays.",
+      approach: ["Consolidated 3 Excel sources (about 5,200 documents) into a MySQL warehouse with a Kimball dimensional model, using an automated Python ETL (pandas, SQLAlchemy)", "8-page Power BI dashboard: average delay, schedule performance index (SPI), progress %, submitted, approved and late documents", "Predictive models (CRISP-DM): delivery status classification and delay-days regression", "Web interface with authentication giving access to the dashboard and the prediction forms"],
+      results: ["Delivery status: XGBoost reached 84.7% accuracy (logistic regression 79.9%)", "Delay in days: Random Forest MAE of 3.96 days (linear regression 5.43)"],
+      disclaimer: "End-of-studies project at Systra Dubai. The code and data are not public."
+    }
+  },
+  {
+    number: "09",
+    type: "BIM QUALITY CONTROL · BI",
+    title: "eLODy — BIM Quality Dashboard",
+    description: "A Power BI dashboard on the quality-control results of eLODy, a tool that checks BIM (IFC) models, built on an ACC test dataset.",
+    tags: ["Power BI", "BIM / IFC", "Excel", "Data quality"],
+    note: "Systra Dubai · 2024 · ACC test data",
+    icon: ShieldCheck,
+    details: {
+      problem: "eLODy checks BIM models, but the team needed a global view of the results and a clear idea of which data to capture, and how.",
+      approach: ["Used eLODy’s detailed Excel KPI exports to define the information needed for global dashboarding", "3-page Power BI dashboard: navigation, overview, error classification details", "Tracked validated, non-validated and unclassified objects, file name, property and IFC errors, and available (249) vs. used (22) classifications", "Compared two ways of capturing the data: directly in eLODy or from Excel files"],
+      results: ["273,000 BIM objects and 3.26 million checks analyzed on the test dataset"],
+      disclaimer: "Internal Systra work, shown here with test data only. The code is not public."
     }
   }
 ];
 
 const experiences = [
   { date: "OCT 2026 — PRESENT", role: "Data Science & AI Intern", company: "Airbus · Lisbon, Portugal",
-    bullets: ["Designing and implementing a Retrieval-Augmented Generation (RAG) system that delivers relevant, traceable answers from large, heterogeneous aviation maintenance documentation.", "Comparing alternative retrieval strategies with retrieval metrics, and evaluating generated answers on relevance, faithfulness and usefulness."],
+    bullets: ["Designing and implementing a Retrieval-Augmented Generation (RAG) system that delivers relevant, traceable answers from large, heterogeneous aviation maintenance documentation.", "Comparing retrieval strategies with information retrieval metrics, and evaluating generated answers on relevance, faithfulness and usefulness.", "Applying a design-science approach combined with experimental evaluation."],
     skills: "Python · LLMs · RAG · NLP · Information retrieval" },
-  { date: "JUN 2025 — DEC 2025", role: "Data Science & AI Intern", company: "Welyne · Tunisia",
-    bullets: ["Built an end-to-end invoice processing system combining OCR (PaddleOCR, Tesseract, EasyOCR) with a locally hosted, fine-tuned LLaMA model to extract seller, buyer, amounts, currency, addresses and IBAN.", "Designed a fully on-premise pipeline with a regex fallback and batch processing, and a Flask app with a manual review interface, validated on real client invoices."],
+  { date: "JUN 2025 — DEC 2025", role: "Data Scientist, AI (Fixed-Term Contract)", company: "Welyne · Tunisia, then remote from Portugal",
+    bullets: ["Designed and deployed an automated invoice extraction system (PDF, JPG, PNG): OCR (PaddleOCR, Tesseract, EasyOCR), text preprocessing, then a locally hosted, fine-tuned LLaMA model returning structured JSON with 6 fields (seller, buyer, total amount, currency, addresses, IBAN).", "Added a regex fallback and batch processing; fully on-premise (no external API) to protect clients’ financial data.", "Built a Flask app (Bootstrap) with database storage (SQLite / PostgreSQL) and a manual review interface, used on real client invoices."],
     skills: "Python · LLM fine-tuning · NLP · OCR · Flask" },
-  { date: "JUN 2024 — MAY 2025", role: "Data Science & AI Consultant", company: "BI4YOU · Tunisia",
-    bullets: ["Developed Power BI dashboards on Snowflake usage data to monitor KPIs, query performance and operational efficiency.", "Designed and optimised Snowflake data models, SQL queries and warehouse configurations, and automated monitoring with stored procedures."],
-    skills: "Snowflake · Power BI · SQL" },
-  { date: "FEB 2024 — JUN 2024", role: "End-of-Studies Intern", company: "Systra Dubai · United Arab Emirates",
-    bullets: ["Designed an end-to-end BI solution: data integration, data warehouse and Power BI visualisations.", "Built and deployed classification and regression models through a user-friendly web interface."],
-    skills: "Python · Talend · SQL · Power BI" },
+  { date: "JUN 2024 — MAY 2025", role: "Data Science & AI Consultant (Permanent Contract)", company: "BI4YOU · Tunisia",
+    bullets: ["Designed a Snowflake performance and cost monitoring tool for administrators: SQL views on SNOWFLAKE.ACCOUNT_USAGE, data model and a 4-page Power BI dashboard (DAX measures, filters by period, user, warehouse, status).", "Tracked consumption per employee (queries, duration, credits, top users, warehouses and databases) to help administrators manage accounts, costs and resources.", "Analyzed about 9,400 queries (32 types) over 6 weeks: costliest query (a 5,116 s Streamlit run), average duration of 3.2 s, SHOW and SELECT at about 66% of volume.", "Wrote the 21-page functional specification, automated monitoring with stored procedures and delivered a reusable Power BI template (.pbit)."],
+    skills: "Snowflake · Power BI · DAX · SQL · Stored procedures" },
+  { date: "FEB 2024 — JUN 2024", role: "Business Intelligence Intern (End-of-Studies Internship)", company: "Systra Dubai · United Arab Emirates",
+    bullets: ["Consolidated 3 Excel sources (about 5,200 documents) into a MySQL data warehouse (Kimball model) through an automated Python ETL, to track engineering document deliveries.", "Built an 8-page Power BI dashboard: average delay, schedule performance index (SPI), progress %, submitted, approved and late documents.", "Developed predictive models: delivery status (XGBoost, 84.7% accuracy) and delay in days (Random Forest, MAE of 3.96 days), deployed through a web interface with authentication.", "Built a Power BI quality-control dashboard for BIM models (eLODy, ACC test data)."],
+    skills: "Python · MySQL · Dimensional modeling · Power BI · XGBoost" },
   { date: "MAY 2023 — AUG 2023", role: "Business Intelligence Intern", company: "Systra Dubai · United Arab Emirates",
     bullets: ["Performed a full ETL pipeline: data collection, extraction, cleaning and transformation.", "Created interactive Power BI dashboards using DAX, including visualisations for a live bridge project and a view of the team's workload.", "Contributed to AiSYSTance, an internal tool combining databases and AI to support bridge design: built the web interface cataloguing past bridge projects (Excel, Draw.io, MySQL, Python)."],
     skills: "Python · MySQL · Power BI · DAX · ETL" },
@@ -156,15 +172,16 @@ const experiences = [
 ];
 
 const skillGroups = [
-  { label: "AI & MACHINE LEARNING", items: ["LLM Fine-tuning", "RAG", "NLP", "OCR", "Deep Learning", "Computer Vision", "Transformers", "PyTorch", "TensorFlow", "Scikit-learn", "XGBoost"] },
-  { label: "DATA & DATABASES", items: ["SQL / Oracle", "MySQL", "MongoDB", "Snowflake", "ETL / Talend", "Data Modeling", "Data Warehousing", "Data Mining"] },
-  { label: "BI & VISUALISATION", items: ["Power BI", "DAX", "Power Query", "Streamlit", "Excel", "Power Platform"] },
+  { label: "AI & MACHINE LEARNING", items: ["LLM Fine-tuning", "RAG", "NLP", "OCR", "Deep Learning", "Computer Vision", "Azure AI", "Transformers", "PyTorch", "TensorFlow", "Scikit-learn", "XGBoost"] },
+  { label: "DATA & DATABASES", items: ["SQL / Oracle", "MySQL", "MongoDB", "Snowflake", "ETL", "Data Modeling", "Data Warehousing", "Data Mining"] },
+  { label: "BI & VISUALISATION", items: ["Power BI", "DAX", "Power Query", "Streamlit", "Qlik Sense (in progress)", "Excel", "Power Platform"] },
   { label: "DEVELOPMENT & MLOPS", items: ["Python", "Flask", "FastAPI", "HTML / CSS / JS", "MLflow", "Kedro", "Git", "UML / Draw.io"] }
 ];
 
 const education = [
   { title: "MSc Data Science & Advanced Analytics", place: "NOVA IMS · Universidade NOVA de Lisboa · Major in Data Science", date: "2025 — 2027" },
-  { title: "Bachelor in Business Intelligence", place: "ESEN · La Manouba, Tunisia · Graduated with “Très Bien” and the jury’s congratulations", date: "2021 — 2025" }
+  { title: "Master 1 (evening classes)", place: "ESEN · La Manouba, Tunisia · alongside a full-time permanent job", date: "2024 — 2025" },
+  { title: "Bachelor in Business Intelligence", place: "ESEN · La Manouba, Tunisia · Graduated with “Très Bien” and the jury’s congratulations", date: "2021 — 2024" }
 ];
 
 const achievements = [
@@ -175,6 +192,7 @@ const achievements = [
 ];
 
 const certifications = [
+  { title: "Qlik Sense", issuer: "Udemy · in progress", date: "IN PROGRESS", links: [] },
   { title: "Azure AI Fundamentals", issuer: "Microsoft Certified", date: "NOV 2024", links: [["Verify", "https://www.credly.com/badges/ebb556e7-5b37-490e-aecb-94eda511aff3/linked_in_profile"]] },
   { title: "TOEIC · 900 / 990", issuer: "Amideast Tunisia", date: "JAN 2025", links: [] },
   { title: "Snowflake Hands-On Essentials", issuer: "Snowflake · 3 workshops: Data Warehousing, Data Application Builders, Collaboration & Cost Estimation", date: "JUL 2024", links: [["Data Warehousing", "https://achieve.snowflake.com/01ac31e3-3f82-43ff-9bc6-47f0af9baa86"], ["Data Apps", "https://achieve.snowflake.com/f2764fc3-bf60-4574-9739-c7683d46873b"], ["Collaboration", "https://achieve.snowflake.com/e72cd4c9-e593-4b36-bb78-0a9f035b02d0"]] },
@@ -214,13 +232,22 @@ const recommendations = [
   }
 ];
 
-const languages = [["Arabic", "C2"], ["French", "C2"], ["English", "C1"], ["Portuguese", "A1"]];
+const languages = [["French", "C2"], ["English", "C1 · TOEIC 900/990"], ["Arabic", "C2"], ["Portuguese", "A1"]];
+
+const EN_DATA = { projects, experiences, skillGroups, education, certifications, community, recommendations, languages };
+const merge = (en, fr) => en.map((x, i) => ({ ...x, ...(fr?.[i] || {}), ...(x.details ? { details: { ...x.details, ...(fr?.[i]?.details || {}) } } : {}) }));
+const getData = (lang) => lang === "fr" ? {
+  projects: merge(projects, FR.projects), experiences: merge(experiences, FR.experiences), skillGroups: merge(skillGroups, FR.skillGroups),
+  education: merge(education, FR.education), certifications: merge(certifications, FR.certifications), community: merge(community, FR.community),
+  recommendations: merge(recommendations, FR.recommendations), languages: FR.languages
+} : EN_DATA;
 
 function SectionHeading({ eyebrow, title, text }) {
   return <div className="section-heading"><span className="eyebrow">{eyebrow}</span><h2>{title}</h2>{text && <p>{text}</p>}</div>;
 }
 
 function ProjectModal({ project, onClose }) {
+  const { t } = useContext(LangCtx);
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
@@ -236,19 +263,20 @@ function ProjectModal({ project, onClose }) {
         <div className="project-top"><span className="project-number">{project.number}</span><span className="project-type">{project.type}</span><span className="project-icon"><Icon size={19}/></span></div>
         <h3>{project.title}</h3>
         <span className="modal-note">{project.note}</span>
-        <h4>The problem</h4><p>{d.problem}</p>
-        <h4>What I built</h4>
+        <h4>{t.problem}</h4><p>{d.problem}</p>
+        <h4>{t.built}</h4>
         <ul>{d.approach.map(a=><li key={a}>{a}</li>)}</ul>
-        {d.results.length>0 && <><h4>Results</h4><ul>{d.results.map(r=><li key={r}>{r}</li>)}</ul></>}
+        {d.results.length>0 && <><h4>{t.results}</h4><ul>{d.results.map(r=><li key={r}>{r}</li>)}</ul></>}
         {d.disclaimer && <p className="modal-disclaimer">{d.disclaimer}</p>}
         <div className="tags">{project.tags.map(tag=><span key={tag}>{tag}</span>)}</div>
-        {!d.disclaimer && <div className="modal-actions"><a className="button button-primary" href={project.repo || GITHUB} target="_blank" rel="noreferrer"><Github size={16}/> {project.repo ? "View the code" : "See my GitHub"}</a>{project.demo && <a className="button button-ghost" href={project.demo} target="_blank" rel="noreferrer">Live dashboard <ArrowUpRight size={15}/></a>}</div>}
+        {!d.disclaimer && <div className="modal-actions"><a className="button button-primary" href={project.repo || GITHUB} target="_blank" rel="noreferrer"><Github size={16}/> {project.repo ? t.code : t.gh}</a>{project.demo && <a className="button button-ghost" href={project.demo} target="_blank" rel="noreferrer">{t.demo} <ArrowUpRight size={15}/></a>}</div>}
       </motion.div>
     </motion.div>
   );
 }
 
 function ContactActions() {
+  const { t } = useContext(LangCtx);
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try { await navigator.clipboard.writeText(EMAIL); }
@@ -259,9 +287,9 @@ function ContactActions() {
     <>
       <div className="contact-email">{EMAIL}</div>
       <div className="contact-actions">
-        <a className="button button-primary" href={`mailto:${EMAIL}`}>Say hello <ArrowUpRight size={16}/></a>
-        <button className="button button-ghost" onClick={copy}>{copied ? <>Copied <Check size={15}/></> : <>Copy email <Copy size={15}/></>}</button>
-        <a className="button button-ghost" href={GMAIL} target="_blank" rel="noreferrer">Open in Gmail <ArrowUpRight size={15}/></a>
+        <a className="button button-primary" href={`mailto:${EMAIL}`}>{t.hello} <ArrowUpRight size={16}/></a>
+        <button className="button button-ghost" onClick={copy}>{copied ? <>{t.copied} <Check size={15}/></> : <>{t.copyBtn} <Copy size={15}/></>}</button>
+        <a className="button button-ghost" href={GMAIL} target="_blank" rel="noreferrer">{t.gmail} <ArrowUpRight size={15}/></a>
       </div>
     </>
   );
@@ -270,99 +298,106 @@ function ContactActions() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState(null);
-  const links = [["About","#about"],["Experience","#experience"],["Projects","#projects"],["Skills","#skills"],["Certifications","#certifications"]];
+  const [lang, setLang] = useState(() => { try { const v = localStorage.getItem("lang"); if (v) return v; } catch {} return (navigator.language || "en").toLowerCase().startsWith("fr") ? "fr" : "en"; });
+  useEffect(() => { document.documentElement.lang = lang; try { localStorage.setItem("lang", lang); } catch {} }, [lang]);
+  const t = UI[lang];
+  const { projects, experiences, skillGroups, education, certifications, community, recommendations, languages } = getData(lang);
+  const links = ["#about", "#experience", "#projects", "#skills", "#certifications"].map((h, i) => [t.nav[i], h]);
   return (
+    <LangCtx.Provider value={{ lang, t }}>
     <div className="site-shell">
       <div className="ambient ambient-one" /><div className="ambient ambient-two" />
       <header className="nav wrap">
         <a className="brand" href="#home">KE<span>.</span></a>
         <nav>{links.map(([l,h])=><a key={l} href={h}>{l}</a>)}</nav>
-        <a className="nav-contact" href="#contact">LET'S TALK <ArrowUpRight size={14}/></a>
+        <button className="lang-toggle" onClick={()=>setLang(lang==="en"?"fr":"en")} aria-label="Language">{lang==="en"?"FR":"EN"}</button>
+        <a className="nav-contact" href="#contact">{t.talk} <ArrowUpRight size={14}/></a>
         <button className="menu-toggle" onClick={()=>setMenuOpen(o=>!o)} aria-label="Menu" aria-expanded={menuOpen}>{menuOpen?<X size={20}/>:<Menu size={20}/>}</button>
-        {menuOpen && <div className="mobile-menu">{links.map(([l,h])=><a key={l} href={h} onClick={()=>setMenuOpen(false)}>{l}</a>)}<a href="#contact" onClick={()=>setMenuOpen(false)}>Contact</a></div>}
+        {menuOpen && <div className="mobile-menu">{links.map(([l,h])=><a key={l} href={h} onClick={()=>setMenuOpen(false)}>{l}</a>)}<a href="#contact" onClick={()=>setMenuOpen(false)}>{t.contact}</a></div>}
       </header>
 
       <main>
         <section className="hero wrap" id="home">
           <motion.div className="hero-copy" initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{duration:.7}}>
-            <div className="availability"><span className="pulse" /> OPEN TO AI & DATA OPPORTUNITIES</div>
-            <p className="hero-kicker">HELLO, I'M KHADIJA ENNAIFER</p>
-            <h1>Building at the<br/><span>intersection</span> of<br/>data & intelligence<span className="dot">.</span></h1>
-            <p className="hero-description">I’m a Data Science graduate student passionate about turning complex data into intelligent, useful solutions — from machine learning to applied AI.</p>
+            <div className="availability"><span className="pulse" /> {t.avail}</div>
+            <p className="hero-kicker">{t.kicker}</p>
+            <h1>{t.h1}</h1>
+            <p className="hero-description">{t.heroDesc}</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#projects">Explore my work <ArrowUpRight size={16}/></a>
-              <a className="button button-ghost" href="#contact">Get in touch <Mail size={15}/></a>
-              {CV_URL && <a className="button button-ghost" href={CV_URL} target="_blank" rel="noreferrer">CV <FileText size={15}/></a>}
+              <a className="button button-primary" href="#projects">{t.explore} <ArrowUpRight size={16}/></a>
+              <a className="button button-ghost" href="#contact">{t.touch} <Mail size={15}/></a>
+              <a className="button button-ghost" href={lang==="fr"?"cv-fr.pdf":"cv-en.pdf"} target="_blank" rel="noreferrer">CV <FileText size={15}/></a>
               <a className="button button-icon" href={GITHUB} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={17}/></a>
               <a className="button button-icon" href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={17}/></a>
             </div>
-            <div className="hero-meta"><span><MapPin size={14}/> Lisbon, Portugal</span><span className="meta-separator">·</span><span>Arabic · French · English · Portuguese</span></div>
+            <div className="hero-meta"><span><MapPin size={14}/> {t.loc}</span><span className="meta-separator">·</span><span>{t.langsLine}</span></div>
           </motion.div>
 
           <motion.div className="portrait-wrap" initial={{opacity:0,scale:.96}} animate={{opacity:1,scale:1}} transition={{duration:.8,delay:.15}}>
             <div className="portrait-frame">
               <img className="portrait-image" src="portrait.jpg" alt="Khadija Ennaifer" />
-              <div className="portrait-caption"><span className="caption-mark">✳</span><span>Curious mind.<br/>Human-centered AI.</span></div>
+              <div className="portrait-caption"><span className="caption-mark">✳</span><span>{t.caption}</span></div>
             </div>
-            <div className="floating-chip chip-top"><BrainCircuit size={15}/> Applied AI</div>
-            <div className="floating-chip chip-bottom"><Code2 size={15}/> Data Science</div>
+            <div className="floating-chip chip-top"><BrainCircuit size={15}/> {t.chipA}</div>
+            <div className="floating-chip chip-bottom"><Code2 size={15}/> {t.chipB}</div>
           </motion.div>
-          <a href="#about" className="scroll-cue"><span>SCROLL TO EXPLORE</span><ArrowDown size={14}/></a>
+          <a href="#about" className="scroll-cue"><span>{t.scroll}</span><ArrowDown size={14}/></a>
         </section>
 
         <section className="about section wrap" id="about">
-          <SectionHeading eyebrow="01 / A LITTLE ABOUT ME" title={<>Curiosity, meet<br/><span className="muted-title">real-world problems.</span></>} />
+          <SectionHeading eyebrow={t.aboutEy} title={t.aboutTitle} />
           <div className="about-grid">
-            <p className="about-lead">I’m interested in building technology that does more than look impressive — it should solve a real problem, support people and make information more accessible.</p>
-            <div className="about-body"><p>With a Bachelor in Business Intelligence and a Master’s in Data Science & Advanced Analytics at NOVA IMS, I’ve worked across data engineering, machine learning, NLP, OCR, computer vision and generative AI, in Tunisia, Dubai and now Portugal.</p><p>Recently, my focus has shifted toward applied AI: combining retrieval, language models and structured data to make complex knowledge easier to use — especially in demanding operational environments.</p><div className="about-facts"><div><strong>5</strong><span>ROLES IN DATA & AI</span></div><div><strong>20/20</strong><span>BEST PROJECT AWARD</span></div><div><strong>4</strong><span>LANGUAGES SPOKEN</span></div></div></div>
+            <p className="about-lead">{t.lead}</p>
+            <div className="about-body"><p>{t.p1}</p><p>{t.p2}</p><div className="about-facts"><div><strong>5</strong><span>{t.facts[0]}</span></div><div><strong>20/20</strong><span>{t.facts[1]}</span></div><div><strong>4</strong><span>{t.facts[2]}</span></div></div></div>
           </div>
         </section>
 
         <section className="experience section wrap" id="experience">
-          <SectionHeading eyebrow="02 / WHERE I'VE BEEN" title="Experience" text="A mix of data, engineering and applied problem-solving." />
+          <SectionHeading eyebrow={t.expEy} title={t.expTitle} text={t.expText} />
           <div className="timeline">{experiences.map((item,i)=><motion.article className="timeline-item" key={item.date} initial={{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.3}} transition={{delay:i*.05}}><div className="timeline-date">{item.date}</div><div className="timeline-marker"><span/></div><div className="timeline-content"><h3>{item.role}</h3><div className="company">{item.company}</div>{item.bullets.length>0 && <ul>{item.bullets.map(b=><li key={b}>{b}</li>)}</ul>}{item.skills && <div className="timeline-skills">{item.skills}</div>}</div></motion.article>)}</div>
         </section>
 
         <section className="projects section wrap" id="projects">
-          <SectionHeading eyebrow="03 / SELECTED WORK" title="Things I've built." text="A selection of projects where I explored, experimented and turned ideas into working solutions." />
+          <SectionHeading eyebrow={t.projEy} title={t.projTitle} text={t.projText} />
           <div className="project-grid">{projects.map((project,i)=>{const Icon=project.icon;return <motion.article className={`project-card ${project.featured?"featured":""}`} key={project.number} role="button" tabIndex={0} onClick={()=>setActive(project)} onKeyDown={(e)=>(e.key==="Enter"||e.key===" ")&&(e.preventDefault(),setActive(project))} initial={{opacity:0,y:22}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.15}} transition={{delay:(i%2)*.08}}><div className="project-top"><span className="project-number">{project.number}</span><span className="project-type">{project.type}</span><span className="project-icon"><Icon size={19}/></span></div><h3>{project.title}</h3><p>{project.description}</p><div className="tags">{project.tags.map(tag=><span key={tag}>{tag}</span>)}</div><div className="project-bottom"><span>{project.note}</span><span className="project-arrow"><ArrowUpRight size={17}/></span></div></motion.article>})}</div>
         </section>
 
         <section className="skills section wrap" id="skills">
-          <SectionHeading eyebrow="04 / SKILLS & TECHNOLOGIES" title="Tools of the trade." text="The languages, frameworks and platforms I use to turn data into working solutions." />
+          <SectionHeading eyebrow={t.skEy} title={t.skTitle} text={t.skText} />
           <div className="skills-grid">{skillGroups.map(group=><div className="skill-group" key={group.label}><span className="eyebrow">{group.label}</span><div className="skill-list">{group.items.map(item=><span key={item}>{item}</span>)}</div></div>)}</div>
-          <div className="education-list">{education.map(e=><div className="education-card" key={e.title}><div><span className="eyebrow">EDUCATION</span><h3>{e.title}</h3><p>{e.place}</p></div><span className="education-date">{e.date}</span></div>)}</div>
+          <div className="education-list">{education.map(e=><div className="education-card" key={e.title}><div><span className="eyebrow">{t.edu}</span><h3>{e.title}</h3><p>{e.place}</p></div><span className="education-date">{e.date}</span></div>)}</div>
           <div className="extras-grid">
-            <div className="skill-group"><span className="eyebrow">LANGUAGES</span><ul className="plain-list">{languages.map(([l,lv])=><li key={l}><span>{l}</span><em>{lv}</em></li>)}</ul></div>
+            <div className="skill-group"><span className="eyebrow">{t.langs}</span><ul className="plain-list">{languages.map(([l,lv])=><li key={l}><span>{l}</span><em>{lv}</em></li>)}</ul></div>
           </div>
         </section>
 
         <section className="certs section wrap" id="certifications">
-          <SectionHeading eyebrow="05 / CREDENTIALS" title="Licences & certifications." text="Continuous learning across AI, cloud, data platforms and BI." />
+          <SectionHeading eyebrow={t.certEy} title={t.certTitle} text={t.certText} />
           <div className="certs-grid">{certifications.map(c=><div className="cert-card" key={c.title}><span className="cert-date">{c.date}</span><h3>{c.title}</h3><p>{c.issuer}</p>{c.links.length>0 && <div className="cert-links">{c.links.map(([l,u])=><a key={u} href={u} target="_blank" rel="noreferrer">{l} <ArrowUpRight size={12}/></a>)}</div>}</div>)}</div>
         </section>
 
         <section className="community section wrap" id="community">
-          <SectionHeading eyebrow="06 / BEYOND THE CODE" title="Community & achievements." text="Teaching, competing and building outside of class and work." />
+          <SectionHeading eyebrow={t.comEy} title={t.comTitle} text={t.comText} />
           <div className="certs-grid">{community.map(c=><div className="cert-card" key={c.title}><span className="cert-date">{c.date}</span><h3>{c.title}</h3><p className="cert-place">{c.place}</p><p>{c.text}</p></div>)}</div>
         </section>
 
         {recommendations.length>0 && <section className="recs section wrap" id="recommendations">
-          <SectionHeading eyebrow="07 / WHAT OTHERS SAY" title="Recommendations." text="In the words of people I've worked with." />
-          <div className="recs-grid">{recommendations.map(r=><figure className="rec-card" key={r.name}><blockquote>“{r.quote}”</blockquote><figcaption><strong>{r.name}</strong><span>{r.title}{r.org ? ` · ${r.org}` : ""}</span>{r.date && <em>{r.date}</em>}{r.translated && <small>Translated from French</small>}</figcaption></figure>)}</div>
+          <SectionHeading eyebrow={t.recEy} title={t.recTitle} text={t.recText} />
+          <div className="recs-grid">{recommendations.map(r=><figure className="rec-card" key={r.name}><blockquote>“{r.quote}”</blockquote><figcaption><strong>{r.name}</strong><span>{r.title}{r.org ? ` · ${r.org}` : ""}</span>{r.date && <em>{r.date}</em>}{r.translated && <small>{t.translated}</small>}</figcaption></figure>)}</div>
         </section>}
 
         <section className="contact section wrap" id="contact">
-          <span className="eyebrow">{recommendations.length>0 ? "08" : "07"} / WHAT'S NEXT?</span>
-          <h2>Have a good problem<br/>to <span>solve?</span></h2>
-          <p>I’d love to connect, exchange ideas or explore how data and AI can make a difference.</p>
+          <span className="eyebrow">{recommendations.length>0 ? "08" : "07"} / {t.next}</span>
+          <h2>{t.contactH}</h2>
+          <p>{t.contactP}</p>
           <ContactActions />
           <div className="socials"><a href={LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={17}/> LinkedIn</a><a href={GITHUB} target="_blank" rel="noreferrer"><Github size={17}/> GitHub</a><a href="mailto:kennaifer@gmail.com"><Mail size={17}/> Email</a></div>
         </section>
       </main>
       <AnimatePresence>{active && <ProjectModal project={active} onClose={()=>setActive(null)} />}</AnimatePresence>
-      <footer className="footer wrap"><a className="brand" href="#home">KE<span>.</span></a><span>Designed & built with curiosity.</span><span>© {new Date().getFullYear()} Khadija Ennaifer</span></footer>
+      <footer className="footer wrap"><a className="brand" href="#home">KE<span>.</span></a><span>{t.footer}</span><span>© {new Date().getFullYear()} Khadija Ennaifer</span></footer>
     </div>
+    </LangCtx.Provider>
   );
 }
 
