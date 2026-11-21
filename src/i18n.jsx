@@ -62,7 +62,7 @@ export const FR = {
     { title: "Licence en Business Intelligence", place: "ESEN · La Manouba, Tunisie · Mention « Très Bien » avec les félicitations du jury" }
   ],
   certifications: [
-    { issuer: "Udemy · en cours", date: "EN COURS" },
+    { issuer: "Udemy", date: "2026" },
     { date: "NOV. 2024" },
     { issuer: "Amideast Tunisie", date: "JANV. 2025" },
     { issuer: "Snowflake · 3 ateliers : Data Warehousing, Data Application Builders, Collaboration & Cost Estimation", date: "JUIL. 2024" },
@@ -74,7 +74,7 @@ export const FR = {
     { title: "Instructrice bénévole", place: "Centre Seif · Tunisie", text: "Enseignement de l’anglais et de l’informatique en tant que bénévole." },
     { title: "Meilleur projet · 20/20", place: "NOVA IMS · Data Mining", text: "Segmentation de clientèle d’une compagnie aérienne, projet de classe noté 20/20." },
     { title: "Hackathon Crustacean Age Prediction", place: "Hackathon", text: "Modèle de Gradient Boosting pour prédire l’âge de crustacés." },
-    { title: "Hackathon El Maken", place: "Hackathon", text: "Classification KNN combinée à un tableau de bord BI." },
+    { title: "Hackathon El Maken", place: "Hackathon", text: "Classification KNN combinée à un tableau de bord BI. Notre équipe a remporté le prix." },
     { title: "Concours de mathématiques", place: "Équipe nationale", text: "Représentante de la Tunisie lors d’un concours de mathématiques." }
   ],
   recommendations: [
@@ -92,14 +92,14 @@ export const FR = {
       bullets: ["Conception et déploiement d’un système d’extraction automatique de factures (PDF, JPG, PNG) : OCR (PaddleOCR, Tesseract, EasyOCR), prétraitement du texte, puis LLaMA affiné hébergé localement, produisant un JSON structuré de 6 champs (vendeur, acheteur, montant total, devise, adresses, IBAN).", "Couche de secours par regex et traitement par lots ; architecture 100 % on-premise (aucune API externe) pour protéger les données financières des clients.", "Application web Flask (Bootstrap) avec stockage en base (SQLite / PostgreSQL) et interface de relecture manuelle, utilisée sur des factures clients réelles."],
       skills: "Python · Fine-tuning de LLM · NLP · OCR · Flask" },
     { date: "JUIN 2024 — MAI 2025", role: "Consultante Data Science & IA (CDI)", company: "BI4YOU · Tunisie",
-      bullets: ["Conception d’un outil de suivi des performances et des coûts Snowflake pour les administrateurs : vues SQL sur SNOWFLAKE.ACCOUNT_USAGE, modèle de données et tableau de bord Power BI de 4 pages (mesures DAX, filtres par période, utilisateur, warehouse, statut).", "Suivi de la consommation par employé (requêtes, durée, crédits, top utilisateurs, warehouses et bases) pour aider à gérer les comptes, les frais et les ressources.", "Analyse d’environ 9 400 requêtes (32 types) sur 6 semaines : requête la plus coûteuse (exécution Streamlit de 5 116 s), durée moyenne de 3,2 s, SHOW et SELECT à environ 66 % du volume.", "Rédaction du cahier de spécifications fonctionnelles (21 pages), automatisation du suivi par procédures stockées et template Power BI (.pbit) réutilisable."],
-      skills: "Snowflake · Power BI · DAX · SQL · Procédures stockées" },
+      bullets: ["Conception de A à Z d’un outil de pilotage Snowflake pour les administrateurs : vues SQL sur SNOWFLAKE.ACCOUNT_USAGE, modèle de données et tableau de bord Power BI de 4 pages (mesures DAX, filtres par période, utilisateur, warehouse et statut).", "Création d’une interface centralisant les rapports Power BI et les analyses de performance et de coûts, pour appuyer les décisions des administrateurs (budget, ressources, optimisations).", "Réduction d’environ 30 % du budget Snowflake : identification des requêtes et warehouses les plus lents et les plus coûteux, puis optimisation avec les administrateurs (réécriture de requêtes, taille et arrêt automatique des warehouses, clustering, resource monitors).", "Gestion des accès et suivi de l’usage d’une équipe de 10 utilisateurs (consultants BI, IT, développeurs) : rôles, droits, requêtes, durée et crédits par utilisateur, warehouse et base de données.", "Maintenance et évolution de l’outil : suivi automatisé par procédures stockées, template Power BI (.pbit) réutilisable, documentation fonctionnelle ; contribution à des initiatives d’aide à la décision et de transformation digitale."],
+      skills: "Snowflake · SQL · Optimisation de requêtes · Gestion des accès · Power BI · DAX" },
     { date: "FÉVR. 2024 — JUIN 2024", role: "Stagiaire en intelligence décisionnelle (stage de fin d’études)", company: "Systra Dubaï · Émirats arabes unis",
       bullets: ["Consolidation de 3 sources Excel (environ 5 200 documents) dans un entrepôt MySQL (modèle Kimball) via un ETL Python automatisé, pour suivre les livraisons de documents d’ingénierie.", "Tableau de bord Power BI de 8 pages : retard moyen, indice de performance de l’échéancier (SPI), % d’avancement, documents soumis, approuvés et en retard.", "Modèles prédictifs : statut de livraison (XGBoost, 84,7 % d’accuracy) et jours de retard (Random Forest, MAE de 3,96 jours), déployés via une interface web avec authentification.", "Tableau de bord Power BI de contrôle qualité de maquettes BIM (eLODy, données de test ACC)."],
       skills: "Python · MySQL · Modélisation dimensionnelle · Power BI · XGBoost" },
     { date: "MAI 2023 — AOÛT 2023", role: "Stagiaire en intelligence décisionnelle", company: "Systra Dubaï · Émirats arabes unis",
-      bullets: ["Réalisation d’un pipeline ETL complet : collecte, extraction, nettoyage et transformation des données.", "Tableaux de bord Power BI interactifs avec DAX, dont des visualisations pour un projet de pont en cours et une vue de la charge de travail de l’équipe.", "Contribution à AiSYSTance, outil interne associant bases de données et IA pour aider à la conception de ponts : développement de l’interface web recensant les projets de ponts passés (Excel, Draw.io, MySQL, Python)."],
-      skills: "Python · MySQL · Power BI · DAX · ETL" },
+      bullets: ["Nettoyage et extraction de données non structurées (Excel, PDF, plans) de milliers de ponts réalisés par SYSTRA, via un pipeline ETL (collecte, extraction, nettoyage, transformation), pour constituer une base de données MySQL.", "Contribution à AiSYSTance, outil interne associant bases de données et IA pour recommander des solutions aux ingénieurs lors de la conception de ponts : participation, au sein d’une équipe, à l’algorithme d’IA et développement de l’interface web (recherche et filtres) recensant les projets passés.", "Création de tableaux de bord Power BI (DAX) pour le chef de département et son manager (projet de pont en cours, charge de travail de l’équipe), pour gagner du temps et obtenir une vision claire."],
+      skills: "Python · MySQL · ETL · Power BI · DAX · HTML / CSS / JS" },
     { date: "2023 — 2025", role: "Instructrice bénévole, anglais et informatique", company: "Centre Seif · Tunisie" }
   ],
   projects: [
@@ -117,7 +117,7 @@ export const FR = {
         results: ["Utilisé avec succès sur des factures clients réelles"] } },
     { type: "APPRENTISSAGE NON SUPERVISÉ", title: "Segmentation de la clientèle d’une compagnie aérienne",
       description: "Segmentation de la clientèle d’une compagnie aérienne en 6 profils comportementaux et de valeur, puis stratégie marketing adaptée à chacun pour améliorer la rétention et la fidélité.",
-      note: "Projet de groupe · Meilleur projet 20/20 · 2025",
+      note: "Projet de groupe · Meilleur projet 20/20 · 2026",
       details: { problem: "Comprendre les clients d’une compagnie aérienne assez finement pour cibler des actions de rétention et de fidélisation, au lieu de traiter tout le monde de la même façon.",
         approach: ["Deux perspectives sur le client : valeur et comportement", "Prétraitement : gestion des valeurs aberrantes (DBSCAN, capping), feature engineering, normalisation", "Comparaison de K-Means, clustering hiérarchique, Mean-Shift, HDBSCAN, GMM, SOM et autoencodeurs", "Fusion des meilleures solutions en segments finaux, puis profilage", "Recommandations marketing personnalisées pour chaque segment", "Tableau de bord Streamlit pour explorer les résultats"],
         results: ["6 segments de clientèle, des « Jet Lag Legends » (fidèles, à forte valeur) aux « Ghost Passengers » (risque de départ)", "K-Means, SOM et autoencodeurs offrent le meilleur équilibre entre séparation, stabilité et interprétabilité", "Meilleur projet (20/20)"] } },
@@ -136,12 +136,12 @@ export const FR = {
       note: "Jeu de données météo d’Australie",
       details: { problem: "Prédire la pluie à partir des données météo australiennes, avec un workflow reproductible de bout en bout.",
         approach: ["Pipeline Kedro pour la préparation des données et l’entraînement", "XGBoost pour la modélisation", "MLflow pour le suivi des expériences", "FastAPI pour servir le modèle"], results: [] } },
-    { type: "BUSINESS INTELLIGENCE · COÛTS & PERFORMANCE", title: "Tableau de bord de suivi Snowflake",
-      description: "Un outil Power BI de 4 pages permettant aux administrateurs de suivre l’activité, les crédits et les ressources par utilisateur, warehouse et base de données, à partir des données d’usage Snowflake.",
-      note: "BI4YOU · 2024 · Prototype sur un compte de test",
-      details: { problem: "Donner aux administrateurs une vision claire de qui utilise quoi, de ce que cela coûte et des requêtes lentes, au-delà des vues natives limitées de Snowflake.",
-        approach: ["Vues SQL sur SNOWFLAKE.ACCOUNT_USAGE dans une base dédiée : type de requête, warehouse et taille, durée, crédits, utilisateur et statut", "Modèle de données Power BI, relations et mesures DAX, avec filtres par période, utilisateur, warehouse et statut", "Suivi par employé : requêtes, durée totale, crédits, top utilisateurs, warehouses et bases de données", "Suivi automatisé par procédures stockées Snowflake et template Power BI (.pbit) réutilisable", "Rédaction d’un cahier de spécifications fonctionnelles de 21 pages (analyse de l’existant, architecture, prototype)"],
-        results: ["Environ 9 400 requêtes (32 types) analysées sur 6 semaines", "Requête la plus coûteuse : une exécution Streamlit de 5 116 s ; durée moyenne de 3,2 s", "SHOW et SELECT représentent environ 66 % du volume de requêtes"] } },
+    { type: "BUSINESS INTELLIGENCE · COÛTS & PERFORMANCE", title: "Suivi et optimisation des coûts Snowflake",
+      description: "Un outil de suivi Power BI et un travail d’optimisation qui ont aidé les administrateurs à réduire le budget Snowflake d’environ 30 % et à gérer les accès d’une équipe de 10 personnes.",
+      note: "BI4YOU · 2024–2025",
+      details: { problem: "Donner aux administrateurs une vision claire de qui utilise quoi, de ce que cela coûte et des requêtes lentes, au-delà des vues natives limitées de Snowflake, et agir en conséquence.",
+        approach: ["Vues SQL sur SNOWFLAKE.ACCOUNT_USAGE dans une base dédiée : type de requête, warehouse et taille, durée, crédits, utilisateur et statut", "Tableau de bord Power BI de 4 pages : modèle de données, relations, mesures DAX, filtres par période, utilisateur, warehouse et statut", "Une interface centralisant les rapports Power BI et les analyses, conçue pour appuyer les décisions des administrateurs", "Optimisation avec les administrateurs : réécriture de requêtes, taille et arrêt automatique des warehouses, clustering, resource monitors", "Rôles, utilisateurs et droits d’accès pour une équipe de 10 personnes (consultants BI, IT, développeurs), avec un suivi de l’usage par employé", "Maintenance continue : procédures stockées, template Power BI (.pbit) réutilisable, documentation fonctionnelle"],
+        results: ["Réduction d’environ 30 % du budget Snowflake", "Accès et usage gérés pour une équipe de 10 utilisateurs", "Analyse du prototype : environ 9 400 requêtes sur 6 semaines ; SHOW et SELECT à environ 66 % du volume"] } },
     { type: "BI · DATA ENGINEERING · ML", title: "BI de suivi des livraisons & prédiction",
       description: "Une solution BI de bout en bout : 3 sources Excel consolidées dans un entrepôt MySQL, un tableau de bord Power BI de 8 pages, deux modèles prédictifs et une interface web.",
       note: "Systra Dubaï · Projet de fin d’études · 2024",
@@ -154,7 +154,7 @@ export const FR = {
       note: "Systra Dubaï · 2024 · Données de test ACC",
       details: { problem: "eLODy contrôle des maquettes BIM, mais l’équipe avait besoin d’une vue globale des résultats et d’une idée claire des données à capturer et de la manière de le faire.",
         approach: ["Exploitation des exports Excel de KPI détaillés d’eLODy pour définir les informations nécessaires à un tableau de bord global", "Tableau de bord Power BI de 3 pages : navigation, vue d’ensemble, détail des erreurs de classification", "Suivi des objets validés, non validés et non classifiés, des erreurs de noms de fichiers, de propriétés et IFC, et des classifications disponibles (249) et utilisées (22)", "Comparaison de deux modes de collecte des données : directement dans eLODy ou depuis des fichiers Excel"],
-        results: ["273 000 objets BIM et 3,26 millions de contrôles analysés sur le jeu de test"],
+        results: ["273 000 objets BIM et 3,26 millions de contrôles analysés sur le jeu de test", "Vue analytique unique des résultats : anomalies récurrentes, conformité BIM et actions correctives prioritaires visibles pour les équipes projet", "Baisse de 17 % des erreurs par la suite"],
         disclaimer: "Travail interne Systra, présenté ici avec des données de test uniquement. Le code n’est pas public." } }
   ]
 };
