@@ -52,7 +52,7 @@ const projects = [
     title: "Airline Customer Segmentation",
     description: "Segmented an airline's customer base into 6 behavioural and value-based profiles, then proposed a tailored marketing strategy for each to improve retention and loyalty.",
     tags: ["K-Means", "HDBSCAN", "GMM", "Autoencoders", "Streamlit"],
-    note: "Group project · Best project 20/20 · 2025",
+    note: "Group project · Best project 20/20 · 2026",
     repo: "https://github.com/barbara-sousa-franco/Data-Mining-Project",
     demo: "https://data-mining-project-sqywcswdyuxvbewkvh7uvu.streamlit.app/Value_Based_Segmentation",
     icon: Users,
@@ -108,16 +108,16 @@ const projects = [
   {
     number: "07",
     type: "BUSINESS INTELLIGENCE · COST & PERFORMANCE",
-    title: "Snowflake Monitoring Dashboard",
-    description: "A 4-page Power BI tool for administrators to track activity, credits and resources per user, warehouse and database, built on Snowflake usage data.",
+    title: "Snowflake Monitoring & Cost Optimization",
+    description: "A Power BI monitoring tool and optimization work that helped administrators cut the Snowflake budget by about 30% and manage access for a team of 10.",
     tags: ["Snowflake", "Power BI", "DAX", "SQL", "Stored Procedures"],
-    note: "BI4YOU · 2024 · Prototype on a test account",
+    note: "BI4YOU · 2024–2025",
     repo: "https://github.com/Khadijaenn/Khadijaenn-performance-analyzation-in-Snowflake",
     icon: Database,
     details: {
-      problem: "Give administrators clear visibility on who uses what, what it costs and which queries are slow, beyond the limited native Snowflake views.",
-      approach: ["SQL views on SNOWFLAKE.ACCOUNT_USAGE in a dedicated database, exposing query type, warehouse and size, duration, credits, user and status", "Power BI data model, relationships and DAX measures, with filters by period, user, warehouse and status", "Tracking per employee: queries, total duration, credits, top users, warehouses and databases", "Automated monitoring with Snowflake stored procedures and a reusable Power BI template (.pbit)", "Wrote a 21-page functional specification (review of existing tools, architecture, prototype)"],
-      results: ["About 9,400 queries (32 types) analyzed over 6 weeks", "Costliest query: a 5,116 s Streamlit run; average duration 3.2 s", "SHOW and SELECT made up about 66% of query volume"]
+      problem: "Give administrators clear visibility on who uses what, what it costs and which queries are slow, beyond the limited native Snowflake views, and act on it.",
+      approach: ["SQL views on SNOWFLAKE.ACCOUNT_USAGE in a dedicated database, exposing query type, warehouse and size, duration, credits, user and status", "4-page Power BI dashboard: data model, relationships, DAX measures, filters by period, user, warehouse and status", "An interface centralizing the Power BI reports and the analyses, built to support administrators’ decisions", "Optimization with administrators: query rewrites, warehouse sizing and auto-suspend, clustering, resource monitors", "Roles, users and access rights for a team of 10 (BI consultants, IT, developers), with usage tracked per employee", "Ongoing maintenance: stored procedures, reusable Power BI template (.pbit), functional documentation"],
+      results: ["About 30% reduction in the Snowflake budget", "Access and usage managed for a team of 10 users", "Prototype analysis: about 9,400 queries over 6 weeks; SHOW and SELECT about 66% of volume"]
     }
   },
   {
@@ -146,7 +146,7 @@ const projects = [
     details: {
       problem: "eLODy checks BIM models, but the team needed a global view of the results and a clear idea of which data to capture, and how.",
       approach: ["Used eLODy’s detailed Excel KPI exports to define the information needed for global dashboarding", "3-page Power BI dashboard: navigation, overview, error classification details", "Tracked validated, non-validated and unclassified objects, file name, property and IFC errors, and available (249) vs. used (22) classifications", "Compared two ways of capturing the data: directly in eLODy or from Excel files"],
-      results: ["273,000 BIM objects and 3.26 million checks analyzed on the test dataset"],
+      results: ["273,000 BIM objects and 3.26 million checks analyzed on the test dataset", "Single analytical view of the results: recurring anomalies, BIM compliance and priority corrective actions made visible to project teams", "Errors down by 17% afterwards"],
       disclaimer: "Internal Systra work, shown here with test data only. The code is not public."
     }
   }
@@ -160,21 +160,21 @@ const experiences = [
     bullets: ["Designed and deployed an automated invoice extraction system (PDF, JPG, PNG): OCR (PaddleOCR, Tesseract, EasyOCR), text preprocessing, then a locally hosted, fine-tuned LLaMA model returning structured JSON with 6 fields (seller, buyer, total amount, currency, addresses, IBAN).", "Added a regex fallback and batch processing; fully on-premise (no external API) to protect clients’ financial data.", "Built a Flask app (Bootstrap) with database storage (SQLite / PostgreSQL) and a manual review interface, used on real client invoices."],
     skills: "Python · LLM fine-tuning · NLP · OCR · Flask" },
   { date: "JUN 2024 — MAY 2025", role: "Data Science & AI Consultant (Permanent Contract)", company: "BI4YOU · Tunisia",
-    bullets: ["Designed a Snowflake performance and cost monitoring tool for administrators: SQL views on SNOWFLAKE.ACCOUNT_USAGE, data model and a 4-page Power BI dashboard (DAX measures, filters by period, user, warehouse, status).", "Tracked consumption per employee (queries, duration, credits, top users, warehouses and databases) to help administrators manage accounts, costs and resources.", "Analyzed about 9,400 queries (32 types) over 6 weeks: costliest query (a 5,116 s Streamlit run), average duration of 3.2 s, SHOW and SELECT at about 66% of volume.", "Wrote the 21-page functional specification, automated monitoring with stored procedures and delivered a reusable Power BI template (.pbit)."],
-    skills: "Snowflake · Power BI · DAX · SQL · Stored procedures" },
+    bullets: ["Designed end to end a Snowflake monitoring tool for administrators: SQL views on SNOWFLAKE.ACCOUNT_USAGE, data model and a 4-page Power BI dashboard (DAX measures, filters by period, user, warehouse and status).", "Built an interface centralizing the Power BI reports and the performance and cost analyses, to support administrators’ decisions (budget, resources, optimizations).", "Cut the Snowflake budget by about 30%: identified the slowest and costliest queries and warehouses, then optimized with administrators (query rewrites, warehouse sizing and auto-suspend, clustering, resource monitors).", "Managed access and tracked usage for a team of 10 users (BI consultants, IT, developers): roles, permissions, queries, duration and credits per user, warehouse and database.", "Maintained and evolved the tool: automated monitoring with stored procedures, a reusable Power BI template (.pbit) and functional documentation; contributed to decision-support and digital transformation initiatives."],
+    skills: "Snowflake · SQL · Query optimization · Access management · Power BI · DAX" },
   { date: "FEB 2024 — JUN 2024", role: "Business Intelligence Intern (End-of-Studies Internship)", company: "Systra Dubai · United Arab Emirates",
     bullets: ["Consolidated 3 Excel sources (about 5,200 documents) into a MySQL data warehouse (Kimball model) through an automated Python ETL, to track engineering document deliveries.", "Built an 8-page Power BI dashboard: average delay, schedule performance index (SPI), progress %, submitted, approved and late documents.", "Developed predictive models: delivery status (XGBoost, 84.7% accuracy) and delay in days (Random Forest, MAE of 3.96 days), deployed through a web interface with authentication.", "Built a Power BI quality-control dashboard for BIM models (eLODy, ACC test data)."],
     skills: "Python · MySQL · Dimensional modeling · Power BI · XGBoost" },
   { date: "MAY 2023 — AUG 2023", role: "Business Intelligence Intern", company: "Systra Dubai · United Arab Emirates",
-    bullets: ["Performed a full ETL pipeline: data collection, extraction, cleaning and transformation.", "Created interactive Power BI dashboards using DAX, including visualisations for a live bridge project and a view of the team's workload.", "Contributed to AiSYSTance, an internal tool combining databases and AI to support bridge design: built the web interface cataloguing past bridge projects (Excel, Draw.io, MySQL, Python)."],
-    skills: "Python · MySQL · Power BI · DAX · ETL" },
+    bullets: ["Cleaned and extracted unstructured data (Excel, PDF, plans) on thousands of SYSTRA bridges through an ETL pipeline (collection, extraction, cleaning, transformation) into a MySQL database.", "Contributed to AiSYSTance, an internal tool combining databases and AI to recommend solutions to engineers in bridge design: worked within a team on the AI algorithm and built the web interface (search and filters) cataloguing past projects.", "Built Power BI dashboards (DAX) for the department head and his manager (live bridge project, team workload) to save time and give a clear view."],
+    skills: "Python · MySQL · ETL · Power BI · DAX · HTML / CSS / JS" },
   { date: "2023 — 2025", role: "Volunteer Instructor, English & Computer Science", company: "Seif Center · Tunisia", bullets: [] }
 ];
 
 const skillGroups = [
-  { label: "AI & MACHINE LEARNING", items: ["LLM Fine-tuning", "RAG", "NLP", "OCR", "Deep Learning", "Computer Vision", "Azure AI", "Transformers", "PyTorch", "TensorFlow", "Scikit-learn", "XGBoost"] },
+  { label: "AI & MACHINE LEARNING", items: ["LLM Fine-tuning", "RAG", "NLP", "OCR", "Deep Learning", "Computer Vision", "Azure AI", "GCP", "Transformers", "PyTorch", "TensorFlow", "Scikit-learn", "XGBoost"] },
   { label: "DATA & DATABASES", items: ["SQL / Oracle", "MySQL", "MongoDB", "Snowflake", "ETL", "Data Modeling", "Data Warehousing", "Data Mining"] },
-  { label: "BI & VISUALISATION", items: ["Power BI", "DAX", "Power Query", "Streamlit", "Qlik Sense (in progress)", "Excel", "Power Platform"] },
+  { label: "BI & VISUALISATION", items: ["Power BI", "DAX", "Power Query", "Streamlit", "Qlik Sense", "Excel", "Power Platform"] },
   { label: "DEVELOPMENT & MLOPS", items: ["Python", "Flask", "FastAPI", "HTML / CSS / JS", "MLflow", "Kedro", "Git", "UML / Draw.io"] }
 ];
 
@@ -185,14 +185,14 @@ const education = [
 ];
 
 const achievements = [
-  ["Best project, Airline Customer Segmentation (20/20)", "2025"],
+  ["Best project, Airline Customer Segmentation (20/20)", "2026"],
   ["Crustacean Age Prediction Hackathon · Gradient Boosting", "2024"],
   ["El Maken Hackathon · KNN classification + BI dashboard", "2023"],
   ["Mathematics Competition · Represented Tunisia", "2017"]
 ];
 
 const certifications = [
-  { title: "Qlik Sense", issuer: "Udemy · in progress", date: "IN PROGRESS", links: [] },
+  { title: "Qlik Sense", issuer: "Udemy", date: "2026", links: [] },
   { title: "Azure AI Fundamentals", issuer: "Microsoft Certified", date: "NOV 2024", links: [["Verify", "https://www.credly.com/badges/ebb556e7-5b37-490e-aecb-94eda511aff3/linked_in_profile"]] },
   { title: "TOEIC · 900 / 990", issuer: "Amideast Tunisia", date: "JAN 2025", links: [] },
   { title: "Snowflake Hands-On Essentials", issuer: "Snowflake · 3 workshops: Data Warehousing, Data Application Builders, Collaboration & Cost Estimation", date: "JUL 2024", links: [["Data Warehousing", "https://achieve.snowflake.com/01ac31e3-3f82-43ff-9bc6-47f0af9baa86"], ["Data Apps", "https://achieve.snowflake.com/f2764fc3-bf60-4574-9739-c7683d46873b"], ["Collaboration", "https://achieve.snowflake.com/e72cd4c9-e593-4b36-bb78-0a9f035b02d0"]] },
@@ -203,9 +203,9 @@ const certifications = [
 
 const community = [
   { date: "2023 — 2025", title: "Volunteer Instructor", place: "Seif Center · Tunisia", text: "Taught English and computer science as a volunteer instructor." },
-  { date: "2025", title: "Best Project · 20/20", place: "NOVA IMS · Data Mining", text: "Airline customer segmentation, awarded the top grade for the class project." },
+  { date: "2026", title: "Best Project · 20/20", place: "NOVA IMS · Data Mining", text: "Airline customer segmentation, awarded the top grade for the class project." },
   { date: "2024", title: "Crustacean Age Prediction Hackathon", place: "Hackathon", text: "Built a Gradient Boosting model to predict crustacean age." },
-  { date: "2023", title: "El Maken Hackathon", place: "Hackathon", text: "KNN classification combined with a BI dashboard." },
+  { date: "2023", title: "El Maken Hackathon", place: "Hackathon", text: "KNN classification combined with a BI dashboard. Our team won the prize." },
   { date: "2017", title: "Mathematics Competition", place: "National team", text: "Represented Tunisia in a mathematics competition." }
 ];
 
